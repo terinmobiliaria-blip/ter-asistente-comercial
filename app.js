@@ -173,7 +173,12 @@ function scoreLevel(score) {
 
 function getResults() {
   const base = allArguments.filter(item => item.project === state.project || item.kind === "finish");
-  const filtered = base.filter(item => profileMatch(item) && categoryMatch(item) && searchMatch(item));
+  const exact = base.filter(item => profileMatch(item) && categoryMatch(item) && searchMatch(item));
+  const sameInterest = base.filter(item => categoryMatch(item) && searchMatch(item));
+  const sameProfile = base.filter(item => profileMatch(item) && searchMatch(item));
+  const anyProjectArgument = base.filter(item => searchMatch(item));
+  const filtered = exact.length ? exact : sameInterest.length ? sameInterest : sameProfile.length ? sameProfile : anyProjectArgument;
+
   return filtered
     .map(item => ({ ...item, score: scoreItem(item) }))
     .sort((a, b) => b.score - a.score || a.project.localeCompare(b.project))
@@ -192,10 +197,13 @@ function render() {
 }
 
 function renderSummary(results) {
+  const hasExactProfile = results.some(item => profileMatch(item));
   const categories = state.interest === "Acabados" && results.some(item => item.kind === "finish")
     ? "Acabados comunes TER"
     : unique(results.map(item => item.category)).slice(0, 3).join(", ") || "Sin resultados";
-  const profiles = state.profile === "Todos"
+  const profiles = state.profile !== "Todos" && !hasExactProfile
+    ? `${state.profile} (adaptable)`
+    : state.profile === "Todos"
     ? unique(results.map(item => item.profile)).slice(0, 3).join(", ") || "Sin resultados"
     : state.profile;
   const firstBenefit = results[0] ? getDisplayBenefit(results[0]) : "Ajusta los filtros para encontrar el argumento mas fuerte.";
@@ -359,3 +367,4 @@ async function copyText(text) {
 }
 
 init();
+
