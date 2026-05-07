@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TER Argumentario Comercial</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="control-panel" aria-label="Filtros comerciales">
+        <div class="brand-block">
+          <p class="eyebrow">TER Argumentario Comercial</p>
+          <h1>Beneficios precisos para el cliente ideal</h1>
+          <p class="brand-note">Elige el contexto de la reunión y recibe los argumentos más útiles para vender mejor.</p>
+          <div class="journey">
+            <span><strong>1</strong> Proyecto</span>
+            <span><strong>2</strong> Perfil</span>
+            <span><strong>3</strong> Beneficio</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="projectSelect">Proyecto de interés</label>
+          <select id="projectSelect"></select>
+        </div>
+
+        <div class="field">
+          <label>Perfil del cliente</label>
+          <div class="segmented" id="profileButtons"></div>
+        </div>
+
+        <div class="field">
+          <label>Qué le importa más</label>
+          <div class="interest-grid" id="interestButtons"></div>
+        </div>
+
+        <div class="field">
+          <label for="searchInput">Buscar palabra clave</label>
+          <input id="searchInput" type="search" placeholder="Ej: ahorro, alquiler, seguridad, vista">
+        </div>
+
+        <div class="field compact">
+          <label for="limitSelect">Mostrar</label>
+          <select id="limitSelect">
+            <option value="3">Top 3 argumentos</option>
+            <option value="5" selected>Top 5 argumentos</option>
+            <option value="99">Todos los relevantes</option>
+          </select>
+        </div>
+        <div class="mobile-shortcuts">
+          <a href="#resultados">Ver argumentos</a>
+          <a href="#mensaje">Mensaje listo</a>
+        </div>
+      </section>
+
+      <section class="results-panel" id="resultados" aria-live="polite">
+        <div class="results-header">
+          <div>
+            <p class="eyebrow">Recomendación comercial</p>
+            <h2 id="resultTitle">Selecciona un proyecto</h2>
+          </div>
+          <span class="count-pill" id="resultCount">0 argumentos</span>
+        </div>
+
+        <div class="quick-summary" id="quickSummary"></div>
+        <div class="cards" id="cards"></div>
+      </section>
+
+      <aside class="share-panel" id="mensaje" aria-label="Mensaje para compartir">
+        <div class="share-header">
+          <p class="eyebrow">Para WhatsApp o correo</p>
+          <h2>Mensaje listo para cliente</h2>
+        </div>
+        <textarea id="shareText" readonly></textarea>
+        <div class="share-actions">
+          <button id="copyShare" type="button">Copiar mensaje</button>
+          <button id="resetFilters" type="button" class="secondary">Limpiar</button>
+        </div>
+        <p class="helper">El mensaje se arma con los argumentos más fuertes según proyecto, perfil e interés.</p>
+      </aside>
+    </main>
+
+    <nav class="mobile-nav" aria-label="Accesos rápidos">
+      <a href="#resultados">Argumentos</a>
+      <a href="#mensaje">Mensaje</a>
+    </nav>
+
+    <script src="./app-data.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
