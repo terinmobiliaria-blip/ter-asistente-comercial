@@ -1,13 +1,15 @@
 :root {
-  --bg: #f4f7f8;
+  --bg: #f6f8f7;
   --panel: #ffffff;
   --ink: #17212b;
   --muted: #62717d;
   --line: #d9e2e7;
-  --brand: #155b4f;
-  --brand-2: #1f7a69;
-  --soft: #e8f3ef;
-  --accent: #f0bd4f;
+  --brand: #279989;
+  --brand-dark: #176f64;
+  --brand-2: #279989;
+  --soft: #e5f4f1;
+  --accent: #de8b02;
+  --yellow: #f5cf47;
   --danger: #9d3a2f;
   --shadow: 0 16px 40px rgba(23, 33, 43, 0.08);
 }
@@ -69,6 +71,13 @@ textarea {
   font-size: 28px;
 }
 
+.brand-logo {
+  display: block;
+  width: min(220px, 80%);
+  height: auto;
+  margin: 0 0 18px;
+}
+
 .brand-note {
   margin: 10px 0 0;
   color: var(--muted);
@@ -101,14 +110,14 @@ textarea {
   place-items: center;
   margin-right: 3px;
   border-radius: 999px;
-  background: var(--brand);
+  background: var(--brand-dark);
   color: #fff;
   font-size: 11px;
 }
 
 .eyebrow {
   margin: 0 0 8px;
-  color: var(--brand);
+  color: var(--brand-dark);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0;
@@ -186,9 +195,9 @@ button {
 }
 
 .chip.active {
-  border-color: var(--brand);
+  border-color: var(--brand-dark);
   background: var(--soft);
-  color: var(--brand);
+  color: var(--brand-dark);
 }
 
 .results-panel {
@@ -220,7 +229,7 @@ button {
   flex: 0 0 auto;
   border-radius: 999px;
   background: var(--soft);
-  color: var(--brand);
+  color: var(--brand-dark);
   padding: 8px 12px;
   font-size: 13px;
   font-weight: 700;
@@ -336,11 +345,11 @@ button {
 }
 
 .score.high {
-  background: var(--brand);
+  background: var(--brand-dark);
 }
 
 .score.medium {
-  background: #b27616;
+  background: var(--accent);
 }
 
 .score.low {
@@ -383,8 +392,8 @@ button {
   min-height: 36px;
   padding: 0 12px;
   background: #fff;
-  border-color: var(--brand);
-  color: var(--brand);
+  border-color: var(--brand-dark);
+  color: var(--brand-dark);
 }
 
 .share-panel {
@@ -409,8 +418,8 @@ textarea {
 
 button {
   padding: 0 14px;
-  background: var(--brand);
-  border-color: var(--brand);
+  background: var(--brand-dark);
+  border-color: var(--brand-dark);
   color: #fff;
 }
 
@@ -440,7 +449,7 @@ button.secondary {
 .mobile-shortcuts a,
 .mobile-nav a {
   border-radius: 8px;
-  background: var(--brand);
+  background: var(--brand-dark);
   color: #fff;
   font-weight: 700;
   text-align: center;
