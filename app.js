@@ -9,18 +9,16 @@ const state = {
 const profileOptions = ["Todos", "Familia", "Inversionista", "Profesional"];
 const interestOptions = [
   "Todos",
-  "Financiero",
-  "Sostenibilidad",
-  "Areas Comunes",
-  "Tecnologia",
-  "Diseno",
   "Acabados",
-  "Seguridad"
+  "Beneficios/Ahorro",
+  "Areas Comunes",
+  "Sostenibilidad",
+  "Diseno"
 ];
 
 const labels = {
   "Areas Comunes": "Áreas comunes",
-  "Tecnologia": "Tecnología",
+  "Beneficios/Ahorro": "Beneficios/Ahorro",
   "Diseno": "Diseño"
 };
 
@@ -133,11 +131,34 @@ function renderControls() {
 
 function categoryMatch(item) {
   if (state.interest === "Todos") return true;
+  return commercialCategory(item) === state.interest;
+}
+
+function commercialCategory(item) {
   const category = normalize(item.category);
-  const text = normalize(`${item.feature} ${item.advantage} ${item.benefit} ${item.objection}`);
-  const interest = normalize(state.interest);
-  if (interest === "seguridad") return text.includes("seguridad") || text.includes("camara") || text.includes("smart");
-  return category === interest || text.includes(interest);
+  const text = normalize(`${item.feature} ${item.advantage} ${item.benefit} ${item.speech} ${item.objection}`);
+
+  if (item.kind === "finish" || category === "acabados") return "Acabados";
+  if (category === "areas comunes") return "Areas Comunes";
+  if (category === "sostenibilidad") return "Sostenibilidad";
+
+  const savingsTerms = [
+    "ahorro", "ahorra", "ahorrar", "bono", "cuota", "mantenimiento", "gas natural",
+    "luz", "luces", "sensor", "sensores", "financiero", "plusvalia", "alquiler",
+    "renta", "credito", "tasa", "bbva", "flujo", "productivo", "smart", "camara",
+    "seguridad", "cerradura", "voz", "inmediata", "pre-venta", "construccion"
+  ];
+  if (category === "financiero" || category === "tecnologia" || savingsTerms.some(term => text.includes(term))) {
+    return "Beneficios/Ahorro";
+  }
+
+  return "Diseno";
+}
+
+function displayCategory(item) {
+  const category = commercialCategory(item);
+  if (item.kind === "finish") return "Acabado común TER";
+  return labels[category] || category;
 }
 
 function profileMatch(item) {
@@ -200,7 +221,7 @@ function renderSummary(results) {
   const hasExactProfile = results.some(item => profileMatch(item));
   const categories = state.interest === "Acabados" && results.some(item => item.kind === "finish")
     ? "Acabados comunes TER"
-    : unique(results.map(item => item.category)).slice(0, 3).join(", ") || "Sin resultados";
+    : unique(results.map(item => displayCategory(item))).slice(0, 3).join(", ") || "Sin resultados";
   const profiles = state.profile !== "Todos" && !hasExactProfile
     ? `${state.profile} (adaptable)`
     : state.profile === "Todos"
@@ -238,7 +259,7 @@ function renderCards(results) {
 
   cards.innerHTML = results.map((item, index) => {
     const displayProject = item.kind === "finish" ? state.project : item.project;
-    const scopeTag = item.kind === "finish" ? "Acabado comun TER" : item.category;
+    const scopeTag = displayCategory(item);
     const displayProfile = state.profile !== "Todos" && normalize(item.profile).includes("todos")
       ? state.profile
       : item.profile;
@@ -302,7 +323,7 @@ function renderShare(results) {
   const top = results.slice(0, 3);
   const intro = `Hola, te comparto lo mas relevante de ${state.project} segun lo que estas buscando:`;
   const lines = top.map((item, index) => {
-    const prefix = item.kind === "finish" ? "Acabado" : item.category;
+    const prefix = item.kind === "finish" ? "Acabado" : displayCategory(item);
     return `${index + 1}. ${prefix} - ${item.feature}: ${getDisplayBenefit(item)}\n   ${cleanQuote(item.speech)}`;
   });
   shareText.value = `${intro}\n\n${lines.join("\n\n")}\n\nSi quieres, vemos juntos la unidad que mejor calza con tu perfil.`;
