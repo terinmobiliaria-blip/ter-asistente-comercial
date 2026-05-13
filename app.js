@@ -210,7 +210,9 @@ function render() {
   const results = getResults();
   const visibleLabel = state.profile === "Todos" ? "todo perfil" : state.profile.toLowerCase();
   resultTitle.textContent = `${state.project} para ${visibleLabel}`;
-  resultCount.textContent = results.length === 1 ? "1 argumento" : `${results.length} argumentos`;
+  if (resultCount) {
+    resultCount.textContent = results.length === 1 ? "1 argumento" : `${results.length} argumentos`;
+  }
 
   renderSummary(results);
   renderCards(results);
@@ -277,11 +279,11 @@ function renderCards(results) {
         <div class="score ${scoreLevel(item.score)}">Ideal<br>${item.score}%</div>
       </div>
       <div class="card-grid">
-        <div class="argument-block">
+        <div class="argument-block advantage-block">
           <span>Ventaja</span>
           <p>${escapeHtml(item.advantage)}</p>
         </div>
-        <div class="argument-block">
+        <div class="argument-block benefit-block">
           <span>Beneficio para cliente</span>
           <p>${escapeHtml(getDisplayBenefit(item))}</p>
         </div>
