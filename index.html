@@ -41,14 +41,6 @@
           <input id="searchInput" type="search" placeholder="Ej: ahorro, alquiler, seguridad, vista">
         </div>
 
-        <div class="field compact">
-          <label for="limitSelect">Mostrar</label>
-          <select id="limitSelect">
-            <option value="3">Top 3 argumentos</option>
-            <option value="5" selected>Top 5 argumentos</option>
-            <option value="99">Todos los relevantes</option>
-          </select>
-        </div>
         <div class="mobile-shortcuts">
           <a href="#resultados">Ver argumentos</a>
           <a href="#mensaje">Mensaje listo</a>
@@ -61,7 +53,16 @@
             <p class="eyebrow">Recomendación comercial</p>
             <h2 id="resultTitle">Selecciona un proyecto</h2>
           </div>
-          <span class="count-pill" id="resultCount">0 argumentos</span>
+          <div class="results-tools">
+            <div class="limit-control">
+              <label for="limitSelect">Mostrar</label>
+              <select id="limitSelect">
+                <option value="3">Top 3 argumentos</option>
+                <option value="5" selected>Top 5 argumentos</option>
+                <option value="99">Todos los relevantes</option>
+              </select>
+            </div>
+          </div>
         </div>
 
         <div class="quick-summary" id="quickSummary"></div>
@@ -91,4 +92,3 @@
     <script src="./app.js"></script>
   </body>
 </html>
-
